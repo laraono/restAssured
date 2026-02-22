@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "accountId": { "type": "string", "pattern": "^[0-9]+$" },
+    "balance": { "type": "number" },
+    "currency": { "type": "string", "pattern": "^[A-Z]{3}$"},
+    "status": { "type": "string", "enum": ["ACTIVE", "INACTIVE", "PENDING"] },
+    "transactions": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-zA-Z]+[0-9]+$"
+              },
+              "amount": { "type": "number" },
+              "date": {
+                "type": "string",
+                "format": "date"
+              }
+            },
+            "required": ["id", "amount", "date"]
+          }
+        }
+      ]
+      }
+    },
+  "required": ["accountId", "balance", "currency", "status", "transactions"]
+}
